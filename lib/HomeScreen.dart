@@ -22,12 +22,18 @@ class HomeScreenApi extends StatefulWidget{
 
 class HomeScreenApiListner extends State<HomeScreenApi>{
 
-  getMyData() async{
-    var homeApi =new HomeScreenApi();
-    List data;
+  var homeApi =new HomeScreenApi();
+  List data;
 
-    data = await(homeApi.getData());
-    print(data);
+ void getMyData() async{
+   data = await(homeApi.getData());
+
+     for(int i =0 ; i < data.length ; i++){
+       print('id =  ${data[i]['id']} => title =  ${data[i]['title']} '
+           '=>   body =  ${data[i]['body']}');
+  }
+
+
   }
 
   @override

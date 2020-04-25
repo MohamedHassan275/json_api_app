@@ -11,14 +11,25 @@ class HomeScreenApi extends StatefulWidget{
     return HomeScreenApiListner();
   }
 
-  Future<String> getData() async {
+  Future<List> getData() async {
     String myUrl = 'https://jsonplaceholder.typicode.com/posts';
     http.Response response = await http.get(myUrl);
-    return response.body;
+    return json.decode(response.body);
   }
+
+
 }
 
 class HomeScreenApiListner extends State<HomeScreenApi>{
+
+  getMyData() async{
+    var homeApi =new HomeScreenApi();
+    List data;
+
+    data = await(homeApi.getData());
+    print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -29,13 +40,15 @@ class HomeScreenApiListner extends State<HomeScreenApi>{
       body: new Container(
         alignment: Alignment.center,
         child: new Center(
-          child: new Text('Hello Mohamed',
-          maxLines: 1,
-          style: new TextStyle(fontSize: 22,
-          color: Colors.deepPurple,
-          fontStyle: FontStyle.italic,
-          ),
-          ),
+          child: new RaisedButton(onPressed: getMyData, child: new Text('Click me '),)
+
+//          new Text('Hello Mohamed',
+//          maxLines: 1,
+//          style: new TextStyle(fontSize: 22,
+//          color: Colors.deepPurple,
+//          fontStyle: FontStyle.italic,
+//          ),
+//          ),
         ),
       ),
     );

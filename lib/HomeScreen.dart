@@ -24,14 +24,17 @@ class HomeScreenApiListner extends State<HomeScreenApi>{
 
   var homeApi =new HomeScreenApi();
   List data;
-
+  List MyTextView =[];
  void getMyData() async{
    data = await(homeApi.getData());
-
-     for(int i =0 ; i < data.length ; i++){
-       print('id =  ${data[i]['id']} => title =  ${data[i]['title']} '
-           '=>   body =  ${data[i]['body']}');
-  }
+   print(data);
+   setState(() {
+     MyTextView = data;
+   });
+//     for(int i =0 ; i < data.length ; i++){
+//       print('id =  ${data[i]['id']} => title =  ${data[i]['title']} '
+//           '=>   body =  ${data[i]['body']}');
+//  }
 
 
   }
@@ -43,20 +46,31 @@ class HomeScreenApiListner extends State<HomeScreenApi>{
       appBar: new AppBar(
         title: new Text('HomeScreen'),
       ),
-      body: new Container(
-        alignment: Alignment.center,
-        child: new Center(
-          child: new RaisedButton(onPressed: getMyData, child: new Text('Click me '),)
+      body: new ListView(
+        padding: EdgeInsets.all(10.0),
+        children: <Widget>[
+          new Container(
+              alignment: Alignment.center,
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Center(
+                      child: new RaisedButton(onPressed: getMyData, child: new Text('Click me '),)
+                  ),
+                  new Center(
+                    child:  new Text('${MyTextView}',
+                      style: new TextStyle(fontSize: 15,
+                        color: Colors.deepPurple,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  )
+                ],
+              )
 
-//          new Text('Hello Mohamed',
-//          maxLines: 1,
-//          style: new TextStyle(fontSize: 22,
-//          color: Colors.deepPurple,
-//          fontStyle: FontStyle.italic,
-//          ),
-//          ),
-        ),
-      ),
+          ),
+        ],
+      )
     );
 
 
